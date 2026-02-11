@@ -1,0 +1,30 @@
+[project]
+name = "spt"
+version = "1.0.0"
+requires-python = "~=3.11"
+dependencies = [
+    "pytz",
+    "matplotlib",
+    "PyYAML",
+    "pandas",
+    "aniso8601",
+    "fpdf2",
+    "numpy==1.26.4",
+    "ndjson",
+    "elasticsearch==8.17.2",
+    "python-dateutil",
+    "minio",
+    "brcc-apis==1.4.1",
+    "tabulate",
+    "spicy",
+    "triplets",
+    "openpyxl",
+    "xlrd",
+    "scipy",
+    "isodate",
+    "python-docx",
+    'six',
+]
+
+
+
