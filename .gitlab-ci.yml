@@ -1,0 +1,28 @@
+
+trigger_to_github_pipeline:
+  stage: deploy
+  image: $ARTIFACTORY_URL/build-containers/alpine:ssh
+  script:
+    - export ALPINE_REPO="https://${ARTIFACTORY_URL}:443/artifactory/alpine/v3.12"
+    - |
+      cat <<EOF > /etc/apk/repositories
+      ${ALPINE_REPO}/main
+      ${ALPINE_REPO}/community
+      EOF
+    - apk add --no-cache git
+    - git config --global http.sslVerify false
+    - git config --global user.email "veikoaunapuu12@gmail.com"
+    - git config --global user.name "VeikoAunapuu"
+    - git clone --depth 1 --branch to-github --single-branch https://package-distribution:$GITLAB_TOKEN@git.rsc-gitlab.elering.sise/rsc/services/sizing-and-procurement.git repo
+    - cd repo
+    - git checkout --orphan "release-distribution"
+    - git add .
+    - git commit -m "Source code distribution with cleaned history"
+    - git remote add github https://$GITHUB_TOKEN@$REPOSITORY
+    - git fetch github main
+    - git rebase github/main release-distribution -X theirs
+    - git push --force --set-upstream github release-distribution
+  when: manual
+
+
+

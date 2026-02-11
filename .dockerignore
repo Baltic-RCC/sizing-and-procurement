@@ -1,0 +1,10 @@
+.idea
+.venv
+.git
+.gitignore
+.gitlab
+**/Dockerfile
+README.md
+.gitlab-ci.yml
+pipelines
+docs
